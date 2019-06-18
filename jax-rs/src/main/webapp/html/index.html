@@ -1,0 +1,106 @@
+<html>
+<head>
+<script>
+	loadAll();
+	function loadAll() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "/jax-rs/api/users", true);
+		xhr.onloadend = function() {
+			// do something to response
+			var val = JSON.parse(this.response);
+			document.getElementById('liste').innerHTML = "";
+			for (i in val) {
+				console.log(val[i]);
+				document.getElementById('liste').innerHTML += "<pre>"
+						+ "<input type=button value=Sup onclick=\"supp('"+ val[i].id+"')\" />"
+						+ "<input type=button value=check onclick=\"modif('"
+						+ val[i].id + "','" + val[i].firstname + "','"
+						+ val[i].lastname + "')\">" + " --> "
+						+ Object.values(val[i]) + "</pre>";
+			}
+			//		    
+		};
+
+		xhr.send();
+	}
+
+	function modif(id, first, last) {
+		document.update.firstname.value = first;
+		document.update.lastname.value = last;
+		document.update.id.value = id;
+	}
+
+	function valid(form) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", form.action, true);
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+		var j = {
+			"id" : form.id.value,
+			"firstname" : form.firstname.value,
+			"lastname" : form.lastname.value
+		};
+		xhr.send(JSON.stringify(j));
+		xhr.onloadend = function() {
+			loadAll();
+		}
+		//document.location.reload(true);
+	}
+	
+	function supp(id) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("DELETE", "/jax-rs/api/users/"+id, true);
+		xhr.onloadend = function() {
+			loadAll();
+		}
+		xhr.send();
+	}
+
+
+	function validAdd(form) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("PUT", form.action + "/" + form.id.value, true);
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+		var j = {
+			"firstname" : form.firstname.value,
+			"lastname" : form.lastname.value
+		};
+		xhr.send(JSON.stringify(j));
+		xhr.onloadend = function() {
+			loadAll();
+		}
+		//document.location.reload(true);
+	}
+</script>
+</head>
+<body>
+	<table width="100%">
+		<tr>
+			<td width=50%>
+				<h3>insert user</h3>
+				<form action="/jax-rs/api/users" enctype='application/json'>
+					Id <input type=text name="id" /><br /> Firstname<input type=text
+						name="firstname" /><br /> Lastname<input type=text
+						name="lastname" /><br /> <input type=button value="commit"
+						onclick="validAdd(this.form)" />
+				</form>
+			<td>
+				<h3>update</h3>
+				<form action="/jax-rs/api/users" enctype='application/json'
+					name="update">
+					Id <input type=text name="id" readonly disabled /><br /> Firstname<input
+						type=text name="firstname" /><br /> Lastname<input type=text
+						name="lastname" /><br /> <input type=button value="Modifier"
+						onclick="valid(this.form)" />
+				</form>
+			</td>
+			</td>
+		</tr>
+	</table>
+	<hr />
+	<h2>LES USERS</h2>
+	<div id="liste"><img src="https://media1.tenor.com/images/85d269dc9595a7bcf87fd0fa4039dd9f/tenor.gif?itemid=8647480"/></div>
+	<!--  <iframe src="/jax-rs/api/users" width="100%"></iframe>-->
+
+
+</body>
+</html>
