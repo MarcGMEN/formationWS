@@ -89,7 +89,7 @@ public class UserResource {
 			return Response.ok().build();
 		} else {
 			logger.info("user null");
-			return Response.noContent().build();
+			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
 	
