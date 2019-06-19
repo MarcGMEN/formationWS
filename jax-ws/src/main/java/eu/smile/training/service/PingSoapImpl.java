@@ -4,7 +4,7 @@ import javax.jws.WebService;
 
 @WebService(
 		endpointInterface = "eu.smile.training.service.PingSoap",
-		serviceName="toto")
+		serviceName="ping")
 public class PingSoapImpl implements PingSoap {
 	
 	

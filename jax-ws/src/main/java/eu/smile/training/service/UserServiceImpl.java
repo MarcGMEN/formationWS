@@ -10,7 +10,7 @@ import eu.smile.training.entity.Users;
 
 @WebService(
 		endpointInterface = "eu.smile.training.service.UserService",
-		serviceName="toto")
+		serviceName="user")
 public class UserServiceImpl implements UserService {
 
 	private static final Users users = new Users();

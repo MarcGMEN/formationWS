@@ -24,7 +24,7 @@
 </binding>
 <service name="ping">
 <port name="PingSoapImplPort" binding="tns:PingSoapImplPortBinding">
-<soap:address location="http://10.1.70.135:8080/ping"></soap:address>
+<soap:address location="http://localhost:8080/pingService"></soap:address>
 </port>
 </service>
 </definitions>

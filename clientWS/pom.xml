@@ -26,6 +26,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<!-- adresse du wsdl, local ou http -->
 					<wsdlDirectory>src/main/resources/wsdl/</wsdlDirectory>
 					<packageName>fr.formation.client.ping</packageName>
 				</configuration>
