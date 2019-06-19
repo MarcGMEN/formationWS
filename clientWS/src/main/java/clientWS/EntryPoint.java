@@ -13,8 +13,21 @@ public class EntryPoint {
 		
 		Users users = new User_Service().getUserServiceImplPort().getUsers();
 		for (User user : users.getUsers()) {
-			System.out.println(user);
+			System.out.println(user.getId()+" "+user.getFirstname()+" "+user.getLastname());
 		}
+		
+		User user = new User();
+		user.setId("008");
+		user.setFirstname("Dupont");
+		user.setLastname("Pierre");
+		
+		new User_Service().getUserServiceImplPort().addUser(user);
+		System.out.println("new list");
+		users = new User_Service().getUserServiceImplPort().getUsers();
+		for (User user1 : users.getUsers()) {
+			System.out.println(user1.getId()+" "+user1.getFirstname()+" "+user1.getLastname());
+		}
+		
 	}
 
 }
